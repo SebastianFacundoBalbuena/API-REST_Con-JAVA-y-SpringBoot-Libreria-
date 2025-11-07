@@ -27,11 +27,11 @@ public class User implements UserDetails {
 private Long id;
 
 @NotBlank(message = "El username es obligatorio")
-@Column(name = "username", nullable = false, length = 15, unique = true)
+@Column(name = "username", nullable = false, length = 50, unique = true)
 private String username;
 
 @NotBlank(message = "La contraseña es obligatoria")
-@Column(name = "password", nullable = false, length = 15)
+@Column(name = "password", nullable = false, length = 130)
 private String password;
 
 @NotBlank(message = "El rol es obligatorio")
@@ -51,6 +51,10 @@ public User(@NotBlank(message = "El username es obligatorio") String username,
 }
 
 //GETTERS Y SETTERS
+
+public Long getId(){
+    return id;
+}
 
 public String getUsername() {
     return username;

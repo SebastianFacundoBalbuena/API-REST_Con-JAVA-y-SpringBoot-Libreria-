@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.biblioteca.library_api.service.CustomUserDetailsService;
 
 import org.springframework.lang.NonNull;
 import jakarta.servlet.FilterChain;
@@ -27,12 +26,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
 
     @Autowired
     private UserDetailsService userDetailsService;
 
+
+    
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, 
     @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException,IOException {
