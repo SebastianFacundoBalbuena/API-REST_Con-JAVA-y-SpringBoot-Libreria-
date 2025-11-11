@@ -30,9 +30,8 @@ services:
       - "${PORT:-8080}:8080"  # 🌐 Tu API en puerto 8080
     environment:
       # 🔗 Conexión a la DB (¡OJO! usa "postgres" como host, no "localhost")
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/library_db
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD:  ${DB_PASSWORD:-admin123}
+      DB_HOST : postgres
+      DB_PORT : 5432
 
           # 📌 SPRING PROFILES (¡ACTIVA PRODUCCIÓN!)
       #SPRING_PROFILES_ACTIVE: prod
