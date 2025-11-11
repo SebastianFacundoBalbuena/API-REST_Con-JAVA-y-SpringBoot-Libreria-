@@ -1,0 +1,52 @@
+# docker-compose.yml 
+
+
+services:
+  # 📊 Servicio de Base de Datos PostgreSQL
+  postgres:
+    image: postgres:15
+    container_name: library_postgres
+    environment:
+      POSTGRES_DB: library_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-admin123}
+    ports:
+      - "5432"  # 🔗 Mapea puerto 8181 de tu PC → 5432 del contenedor
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - library-network
+    healthcheck:  # 📌 NUEVO: Verifica que PostgreSQL esté listo
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # 🚀 Tu aplicación Spring Boot
+  app:
+    build: .  # ⚡ Construye usando el Dockerfile
+    container_name: library_api
+    ports:
+      - "${PORT:-8080}:8080"  # 🌐 Tu API en puerto 8080
+    environment:
+      # 🔗 Conexión a la DB (¡OJO! usa "postgres" como host, no "localhost")
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/library_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD:  ${DB_PASSWORD:-admin123}
+
+          # 📌 SPRING PROFILES (¡ACTIVA PRODUCCIÓN!)
+      SPRING_PROFILES_ACTIVE: prod
+
+    depends_on:
+      - postgres  # ⏳ Espera que PostgreSQL esté listo primero
+    networks:
+      - library-network
+
+# 📦 Volumen para persistir datos de la DB
+volumes:
+  postgres_data:
+
+# 🌐 Red para que los contenedores se comuniquen
+networks:
+  library-network:
+    driver: bridge
