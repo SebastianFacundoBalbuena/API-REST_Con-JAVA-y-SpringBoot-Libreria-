@@ -29,8 +29,6 @@ services:
     ports:
       - "${PORT:-8080}:8080"  # 🌐 Tu API en puerto 8080
     environment:
-    SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/library_db
-    SPRING_DATASOURCE_USERNAME: postgres
     SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-admin123}
     
     # 🔥 También estas por si acaso:
