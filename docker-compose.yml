@@ -35,10 +35,11 @@ services:
       SPRING_DATASOURCE_PASSWORD:  ${DB_PASSWORD:-admin123}
 
           # 📌 SPRING PROFILES (¡ACTIVA PRODUCCIÓN!)
-      SPRING_PROFILES_ACTIVE: prod
+      #SPRING_PROFILES_ACTIVE: prod
 
     depends_on:
-      - postgres  # ⏳ Espera que PostgreSQL esté listo primero
+      postgres:
+        condition: service_healthy
     networks:
       - library-network
 
