@@ -3,6 +3,7 @@ package com.biblioteca.library_api.controller;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -19,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Arrays;
 import java.util.List;
 
+import com.biblioteca.library_api.config.TestSecurityConfig;
 import com.biblioteca.library_api.dto.BookRequestDTO;
 import com.biblioteca.library_api.dto.BookResponseDTO;
 import com.biblioteca.library_api.model.Book;
@@ -31,6 +33,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @WebMvcTest(BookController.class)
+@Import(TestSecurityConfig.class)
 public class BookControllerTest {
 
     @Autowired
@@ -41,6 +44,9 @@ public class BookControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+
+
 
      @Test
      void getAllBook_whenBookExisting_thenReturnList() throws Exception{
