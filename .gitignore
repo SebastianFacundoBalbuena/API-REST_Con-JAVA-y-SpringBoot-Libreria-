@@ -4,6 +4,12 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+
+# Excepciones para archivos de configuración
+!**/src/main/resources/application.properties
+!**/src/main/resources/application-*.properties
+!**/src/main/resources/application-*.yml
+
 ### STS ###
 .apt_generated
 .classpath
