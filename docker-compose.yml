@@ -1,0 +1,45 @@
+# docker-compose.yml 
+
+
+version: '3.8'
+
+services:
+  # ✅ TU APLICACIÓN SPRING BOOT
+  library-api:
+    build: 
+      context: .
+      dockerfile: dockerfile
+    container_name: library-api
+    ports:
+      - "8080:8080"
+    environment:
+      # SOBREESCRIBIMOS las variables para Docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/library_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=balbuena022000
+    depends_on:
+      - postgres-db
+    networks:
+      - library-network
+
+  # ✅ BASE DE DATOS POSTGRESQL
+  postgres-db:
+    image: postgres:15
+    container_name: postgres-db
+    environment:
+      - POSTGRES_DB=library_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=balbuena022000
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - library-network
+
+volumes:
+  postgres_data:
+
+networks:
+  library-network:
+    driver: bridge

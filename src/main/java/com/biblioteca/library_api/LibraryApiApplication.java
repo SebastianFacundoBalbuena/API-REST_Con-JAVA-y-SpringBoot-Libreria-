@@ -12,7 +12,7 @@ public class LibraryApiApplication {
 
 		SpringApplication.run(LibraryApiApplication.class, args);
 		
-		System.out.println("✅ API de Biblioteca ejecutándose en: http://localhost:8080");
+		System.out.println(" ✅ API de Biblioteca ejecutándose en: http://localhost:8080");
 
 	}
 
